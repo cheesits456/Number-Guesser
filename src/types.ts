@@ -7,6 +7,4 @@ interface Config {
 	token: Tokens;
 }
 
-export {
-	Config
-}
+export { Config };
