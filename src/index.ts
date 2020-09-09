@@ -20,8 +20,10 @@ let guess: Guess = {
 chooser.on("message", msg => {
 	if (msg.content.startsWith("/start")) {
 		if (game.inProgress) return;
-		let min: number = msg.content.split(" ").length >= 2 ? Math.round(parseInt(msg.content.split(" ")[1], 10)) : 0;
-		let max: number = msg.content.split(" ").length >= 3 ? Math.round(parseInt(msg.content.split(" ")[2], 10)) : 5000;
+		let args = msg.content.split(" ");
+		args.shift();
+		let min: number = args[0] && !isNaN(Number(args[0])) ? Math.round(parseInt(args[0], 10)) : 0;
+		let max: number = args[1] && !isNaN(Number(args[1])) ? Math.round(parseInt(args[1], 10)) : 5000;
 
 		if (min > max) [min, max] = [max, min];
 
