@@ -36,19 +36,19 @@ chooser.on("message", msg => {
 		game.number = random(min, max);
 		game.guessed = [];
 		game.inProgress = true;
-		return msg.channel.send(`Game Started! I'm thinking of a number between **${min}** and **${max}** . . .`);
+		return msg.channel.send(`Game Started! I'm thinking of a number between **${min.toLocaleString()}** and **${max.toLocaleString()}** . . .`);
 	}
 
 	if (msg.author.id === guesser.user?.id && game.inProgress) {
-		const guess: number = parseInt(msg.content, 10);
+		const guess: number = Number(msg.content);
 		game.guessed.push(guess);
 		if (guess === game.number) {
 			game.inProgress = false;
 			return msg.channel.send(
-				`Game Finished! Number **${game.number}** guessed correctly in \`${game.guessed.length}\` guesses!`
+				`Game Finished! Number **${game.number.toLocaleString()}** guessed correctly in \`${game.guessed.length}\` guesses!`
 			);
 		}
-		return msg.channel.send(`The number is ${guess > game.number ? "lower" : "higher"} than \`${guess}\``);
+		return msg.channel.send(`The number is ${guess > game.number ? "lower" : "higher"} than \`${guess.toLocaleString()}\``);
 	}
 });
 
@@ -57,13 +57,13 @@ guesser.on("message", msg => {
 		if (msg.content.startsWith("Game Finished!")) return;
 
 		if (msg.content.startsWith("Game Started!")) {
-			const match = msg.content.match(/(?<=\*\*)\d+?(?=\*\*)/g);
-			guess.min = parseInt((match as Array<string>)[0], 10);
-			guess.max = parseInt((match as Array<string>)[1], 10);
+			const match = msg.content.match(/(?<=\*\*)[\d,]+?(?=\*\*)/g);
+			guess.min = Number((match as Array<string>)[0].replace(/,/g, ""));
+			guess.max = Number((match as Array<string>)[1].replace(/,/g, ""));
 		}
 
-		let match = msg.content.match(/^The number is ([a-z]+?) than `(\d+)`$/);
-		if (match) guess[match[1] === "higher" ? "min" : "max"] = parseInt(match[2], 10);
+		let match = msg.content.match(/^The number is ([a-z]+?) than `([\d,]+)`$/);
+		if (match) guess[match[1] === "higher" ? "min" : "max"] = Number(match[2].replace(/,/g, ""));
 
 		return msg.channel.send(String(average(guess.min, guess.max)));
 	}
