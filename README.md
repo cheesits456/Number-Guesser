@@ -51,6 +51,6 @@ Once the bots are online, you'll be able to use the `/start` command in a Discor
 ## Samples
 Here's a couple screenshots to show examples of what the bots look like in action:
 
-<img alt="/start 0 100" src="https://cdn.discordapp.com/attachments/446968021492432900/753166525086564352/unknown.png" align="left">
-<img alt="/start 0 100" src="https://cdn.discordapp.com/attachments/446968021492432900/753166963953500170/unknown.png" align="left">
+<img alt="/start 0 100" src="https://cdn.discordapp.com/attachments/446968021492432900/753166525086564352/unknown.png" align="left" width="45%">
+<img alt="/start 0 100" src="https://cdn.discordapp.com/attachments/446968021492432900/753166963953500170/unknown.png" align="left" width="45%">
 
