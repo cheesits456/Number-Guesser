@@ -1,8 +1,7 @@
 {
+	"extends": "@tsconfig/node12/tsconfig.json",
 	"compilerOptions": {
-		"outDir": "./dist",
-		"allowJs": true,
-		"target": "es6"
+		"outDir": "./dist"
 	},
 	"include": ["./src/**/*"]
 }
