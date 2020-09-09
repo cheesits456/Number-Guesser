@@ -14,16 +14,27 @@ let game: Game = {
 
 let guess: Guess = {
 	min: 0,
-	max: 5000
+	max: 0
 };
 
 chooser.on("message", msg => {
-	if (msg.content === "/start") {
+	if (msg.content.startsWith("/start")) {
 		if (game.inProgress) return;
-		game.number = random(0, 5000);
+		let min: number = msg.content.split(" ").length >= 2 ? Math.round(parseInt(msg.content.split(" ")[1], 10)) : 0;
+		let max: number = msg.content.split(" ").length >= 3 ? Math.round(parseInt(msg.content.split(" ")[2], 10)) : 5000;
+
+		if (min > max) [min, max] = [max, min];
+
+		if (min < 0) min = 0;
+		if (max < 10) max = 10;
+
+		if (min > 1000000) min = 1000000;
+		if (max > 1000000000000) max = 1000000000000;
+
+		game.number = random(min, max);
 		game.guessed = [];
 		game.inProgress = true;
-		return msg.channel.send("Game Started! I'm thinking of a number between **0** and **5000** . . .");
+		return msg.channel.send(`Game Started! I'm thinking of a number between **${min}** and **${max}** . . .`);
 	}
 
 	if (msg.author.id === guesser.user?.id && game.inProgress) {
@@ -31,7 +42,9 @@ chooser.on("message", msg => {
 		game.guessed.push(guess);
 		if (guess === game.number) {
 			game.inProgress = false;
-			return msg.channel.send(`Game Finished! Number **${game.number}** guessed correctly in \`${game.guessed.length}\` guesses!`);
+			return msg.channel.send(
+				`Game Finished! Number **${game.number}** guessed correctly in \`${game.guessed.length}\` guesses!`
+			);
 		}
 		return msg.channel.send(`The number is ${guess > game.number ? "lower" : "higher"} than \`${guess}\``);
 	}
@@ -42,8 +55,9 @@ guesser.on("message", msg => {
 		if (msg.content.startsWith("Game Finished!")) return;
 
 		if (msg.content.startsWith("Game Started!")) {
-			guess.min = 0;
-			guess.max = 5000;
+			const match = msg.content.match(/(?<=\*\*)\d+?(?=\*\*)/g);
+			guess.min = parseInt((match as Array<string>)[0], 10);
+			guess.max = parseInt((match as Array<string>)[1], 10);
 		}
 
 		let match = msg.content.match(/^The number is ([a-z]+?) than `(\d+)`$/);
@@ -52,6 +66,9 @@ guesser.on("message", msg => {
 		return msg.channel.send(String(average(guess.min, guess.max)));
 	}
 });
+
+chooser.on("ready", () => console.log(`${chooser.user?.tag} Connected!`));
+guesser.on("ready", () => console.log(`${guesser.user?.tag} Connected!`));
 
 chooser.login(config.token.chooser);
 guesser.login(config.token.guesser);
