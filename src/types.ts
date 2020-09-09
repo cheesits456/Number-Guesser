@@ -7,4 +7,15 @@ interface Config {
 	token: Tokens;
 }
 
-export { Config };
+interface Game {
+	inProgress: boolean;
+	number: number;
+	guessed: Array<number>;
+}
+
+interface Guess {
+	min: number;
+	max: number;
+}
+
+export { Config, Game, Guess };
