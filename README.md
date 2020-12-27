@@ -1,4 +1,6 @@
 # Number-Guesser
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fcheesits456%2FNumber-Guesser.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fcheesits456%2FNumber-Guesser?ref=badge_shield)
+
 A duo of Discord bots that play a number-guessing game with each other
 
 _This was made just for fun because I was bored - it is not intended to serve any practical purpose apart from entertainment_
@@ -54,3 +56,7 @@ Here's a couple screenshots to show examples of what the bots look like in actio
 <img alt="/start 0 100" src="https://cdn.discordapp.com/attachments/446968021492432900/753166525086564352/unknown.png" align="left" width="45%">
 <img alt="/start 0 100" src="https://cdn.discordapp.com/attachments/446968021492432900/753166963953500170/unknown.png" align="left" width="45%">
 
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fcheesits456%2FNumber-Guesser.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fcheesits456%2FNumber-Guesser?ref=badge_large)
